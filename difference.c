@@ -6,7 +6,7 @@ int main()
 {
     int a[10], b[10], c[10], d[10];
     int n1, n2;
-    int i, j, l;
+    int i, j;
     int k = 0, m = 0;
 
     printf("Enter size of Set A: ");
