@@ -1,3 +1,4 @@
+//2. program to find uniqueness of elements in a set
 #include <stdio.h>
 
 int set[100];   // Array to store unique elements
