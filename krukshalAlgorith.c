@@ -1,41 +1,63 @@
-/* C Program to Implement Kruskal's Algorithm for MST */
-
 #include <stdio.h>
 
-int i, j, k, a, b, u, v, n, ne = 1;
-int min, mincost = 0, cost[9][9], parent[9];
+int parent[10];
 
-int find(int i);
-int uni(int i, int j);
+int find(int i)
+{
+    while(parent[i])
+        i = parent[i];
+
+    return i;
+}
+
+int uni(int i, int j)
+{
+    if(i != j)
+    {
+        parent[j] = i;
+        return 1;
+    }
+
+    return 0;
+}
 
 int main()
 {
-    printf("\nImplementation of Kruskal's Algorithm\n");
-    printf("\nEnter no. of vertices: ");
+    int cost[10][10];
+    int i, j, u, v, a, b;
+    int min, ne = 1;
+    int n;
+    int mincost = 0;
+
+    printf("\nImplementation of Kruskal's algorithm\n");
+
+    printf("Enter the number of vertices: ");
     scanf("%d", &n);
 
-    printf("\nEnter the cost adjacency matrix:\n");
+    printf("Enter the cost of adjacency matrix:\n");
 
-    for (i = 1; i <= n; i++)
+    for(i = 1; i <= n; i++)
     {
-        for (j = 1; j <= n; j++)
+        for(j = 1; j <= n; j++)
         {
             scanf("%d", &cost[i][j]);
 
-            if (cost[i][j] == 0)
+            if(cost[i][j] == 0)
                 cost[i][j] = 999;
         }
     }
 
-    printf("\nThe edges of Minimum Spanning Tree are:\n");
+    printf("\nThe edges of minimum spanning tree are:\n");
 
-    while (ne < n)
+    while(ne < n)
     {
-        for (i = 1, min = 999; i <= n; i++)
+        min = 999;
+
+        for(i = 1; i <= n; i++)
         {
-            for (j = 1; j <= n; j++)
+            for(j = 1; j <= n; j++)
             {
-                if (cost[i][j] < min)
+                if(cost[i][j] < min)
                 {
                     min = cost[i][j];
                     a = u = i;
@@ -47,36 +69,18 @@ int main()
         u = find(u);
         v = find(v);
 
-        if (uni(u, v))
+        if(uni(u, v))
         {
-            printf("Edge (%d,%d) = %d\n", a, b, min);
+            printf("Edge %d: (%d,%d) = %d\n",
+                   ne++, a, b, min);
+
             mincost += min;
-            ne++;
         }
 
         cost[a][b] = cost[b][a] = 999;
     }
 
-    printf("\nMinimal cost = %d\n", mincost);
-
-    return 0;
-}
-
-int find(int i)
-{
-    while (parent[i])
-        i = parent[i];
-
-    return i;
-}
-
-int uni(int i, int j)
-{
-    if (i != j)
-    {
-        parent[j] = i;
-        return 1;
-    }
+    printf("\nMinimum cost = %d\n", mincost);
 
     return 0;
 }

@@ -1,31 +1,42 @@
-/* C Program to Calculate b^n mod m Using Recursion */
-
 #include <stdio.h>
 
-int powerMod(int b, int n, int m)
+int power(int b, unsigned int n, int m)
 {
-    if (n == 0)
-        return 1 % m;
+    int res = 1;       // Initialize result
 
-    return (b * powerMod(b, n - 1, m)) % m;
+    b = b % m;         // Update b if it is more than or equal to m
+
+    while (n > 0)
+    {
+        // If n is odd, multiply b with result
+        if (n & 1)
+            res = (res * b) % m;
+
+        // n must be even now
+        n = n >> 1;    // n = n / 2
+        b = (b * b) % m;
+    }
+
+    return res;
 }
 
 int main()
 {
     int b, n, m, result;
 
-    printf("Enter base number: ");
+    printf("Enter the positive integer b: ");
     scanf("%d", &b);
 
-    printf("Enter power number: ");
+    printf("Enter the positive integer n: ");
     scanf("%d", &n);
 
-    printf("Enter modulo number: ");
+    printf("Enter the positive integer m: ");
     scanf("%d", &m);
 
-    result = powerMod(b, n, m);
+    // Calculate the result
+    result = power(b, n, m);
 
-    printf("(%d^%d) mod %d = %d", b, n, m, result);
+    printf("Modulo Power is %d", result);
 
     return 0;
 }
